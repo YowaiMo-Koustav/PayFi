@@ -1,0 +1,232 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.breadcrumb {
+  margin-bottom: 1.5rem;
+}
+
+.backLink {
+  color: #a0a4b8;
+  font-size: 0.875rem;
+  transition: var(--transition);
+}
+
+.backLink:hover {
+  color: var(--foreground);
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--foreground), var(--tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.amount {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--danger);
+  background: rgba(239, 71, 111, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+}
+
+.subtitle {
+  color: #a0a4b8;
+  font-size: 1rem;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
+  padding: 2rem;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: #a0a4b8;
+  margin-bottom: 1.5rem;
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btnPrimary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnPrimary:hover {
+  background: #324ed4;
+  transform: translateY(-2px);
+}
+
+.btnSecondary {
+  background: rgba(255, 209, 102, 0.1);
+  color: var(--warning);
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnSecondary:hover:not(.disabled) {
+  background: rgba(255, 209, 102, 0.2);
+  transform: translateY(-2px);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.draftBox {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.draftHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #a0a4b8;
+}
+
+.draftContent {
+  width: 100%;
+  height: 200px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.draftContent:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btnSend {
+  background: var(--success);
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnSend:hover {
+  background: #05b888;
+}
+
+.payoutCard {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(67, 97, 238, 0.1));
+  border-color: rgba(6, 214, 160, 0.3);
+}
+
+.payoutIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.payoutAmount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.btnClaim {
+  background: var(--foreground);
+  color: var(--background);
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition);
+  margin-top: 1rem;
+}
+
+.btnClaim:hover {
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.successMsg {
+  background: rgba(6, 214, 160, 0.2);
+  color: var(--success);
+  padding: 0.875rem;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 1rem;
+}

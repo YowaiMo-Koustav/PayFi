@@ -1,142 +1,202 @@
 .page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
   display: flex;
-  flex: 1;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.main {
+.heroSection {
   display: flex;
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  align-items: flex-end;
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  margin-bottom: 2rem;
 }
 
-.intro {
+.heroContent {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.heroTitle {
+  font-family: var(--font-oswald), sans-serif;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  background: white;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -2px;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.heroSubtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--tertiary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0;
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
+.marqueeContainer {
   width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
+  overflow: hidden;
+  background: var(--glass-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 0;
+  margin-bottom: 3rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.marqueeText {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--tertiary);
+  display: inline-flex;
+  padding-right: 2rem;
+  width: max-content;
+}
+
+.btnPrimary {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--glass-border-highlight);
+  padding: 0.875rem 1.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: var(--font-jakarta), sans-serif;
   cursor: pointer;
-  width: fit-content;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.btnPrimary:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0px rgba(255,255,255,0.2);
+}
+
+.btnPrimary:active {
+  transform: translate(0px, 0px);
+  box-shadow: none;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.metricsGrid > * {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.metricsGrid > *:nth-child(1) { animation-delay: 0.1s; }
+.metricsGrid > *:nth-child(2) { animation-delay: 0.2s; }
+.metricsGrid > *:nth-child(3) { animation-delay: 0.3s; }
+.metricsGrid > *:nth-child(4) { animation-delay: 0.4s; }
+
+.recentSection {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
+  padding: 2rem;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sectionHeader h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.link {
+  color: var(--tertiary);
   font-weight: 500;
+  font-size: 0.875rem;
+  transition: var(--transition);
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.link:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border-radius: var(--glass-radius);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.activityItem:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--primary);
+  transform: translate(-4px, -4px);
+  box-shadow: var(--glass-shadow);
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.activityIcon {
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  border-radius: 4px;
+  border: 1px solid var(--glass-border);
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+.activityDetails {
+  flex-grow: 1;
+}
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+.activityDetails h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.activityDetails p {
+  font-size: 0.875rem;
+  color: var(--tertiary);
+}
+
+.activityAmount {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--tertiary);
+}
+
+.activityAmount.positive {
+  color: var(--success);
 }

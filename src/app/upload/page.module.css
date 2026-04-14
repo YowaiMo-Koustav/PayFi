@@ -1,0 +1,135 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, var(--foreground), var(--tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #a0a4b8;
+  font-size: 1.125rem;
+}
+
+.dropZone {
+  background: var(--glass-bg);
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: var(--glass-radius);
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.dropZone:hover, .dropZone.active {
+  border-color: var(--primary);
+  background: rgba(67, 97, 238, 0.05);
+  transform: scale(1.02);
+}
+
+.dropZone.active {
+  animation: pulseGlow 1.5s infinite alternate;
+}
+
+.dropIcon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.dropZone:hover .dropIcon {
+  transform: translateY(-10px);
+}
+
+.dropTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.dropSubtitle {
+  color: #a0a4b8;
+  margin-bottom: 2rem;
+}
+
+.browseBtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--foreground);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.browseBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fileList {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
+  padding: 2rem;
+}
+
+.listTitle {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.fileItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.fileSize {
+  color: #a0a4b8;
+}
+
+.uploadSubmitBtn {
+  margin-top: 1.5rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.uploadSubmitBtn:hover {
+  background: #324ed4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+}
