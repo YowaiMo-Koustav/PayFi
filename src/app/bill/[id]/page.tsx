@@ -1,19 +1,49 @@
 'use client';
 
-import { use, useState } from 'react';
+import { use, useState, useRef } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
+import { sendEmailAction, escalateTaskAction } from '@/lib/locusApi';
 
 export default function BillDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const [draftOpen, setDraftOpen] = useState(false);
   const [escalated, setEscalated] = useState(false);
   const [claimed, setClaimed] = useState(false);
+  
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
 
   // Mock static data for demo
   const serviceName = id === '1' ? 'Netflix' : id === '2' ? 'Adobe Creative Cloud' : id === '3' ? 'Gym Membership' : 'Subscription Service';
   const amount = id === '1' ? '$22.99/mo' : id === '2' ? '$85.00/mo' : '$120.00/mo';
   const recoverValue = id === '2' ? '$85.00' : null;
+
+  const handleEscalate = async () => {
+    setEscalated(true);
+    try {
+      await escalateTaskAction(id);
+    } catch(e: any) {
+      console.error("AgentMail Escalate error:", e);
+      alert('Failed to escalate: ' + e.message);
+      setEscalated(false);
+    }
+  }
+
+  const handleSendEmail = async () => {
+    try {
+      if(!bodyRef.current?.value) return;
+      await sendEmailAction({
+        to: `support@${serviceName.toLowerCase().replace(/\\s/g, '')}.com`,
+        subject: `Cancellation Request - Acct #XXX`,
+        body: bodyRef.current.value
+      });
+      alert('Email Sent successfully via Locus AgentMail! ($0.01 USDC paid)');
+      setDraftOpen(false);
+    } catch(e: any) {
+      console.error("AgentMail Send error:", e);
+      alert('Failed to send email via Locus: ' + e.message);
+    }
+  }
 
   return (
     <div className={styles.page}>
@@ -44,24 +74,25 @@ export default function BillDetailPage({ params }: { params: Promise<{ id: strin
               
               <button 
                 className={`${styles.btnSecondary} ${escalated ? styles.disabled : ''}`}
-                onClick={() => setEscalated(true)}
+                onClick={handleEscalate}
                 disabled={escalated}
               >
-                {escalated ? 'Escalated to Agent ✓' : 'Escalate Hard Case 🛡️'}
+                {escalated ? 'Escalated to Agent (AgentMail Sent) ✓' : 'Escalate Hard Case 🛡️'}
               </button>
             </div>
 
             {draftOpen && (
               <div className={styles.draftBox}>
                 <div className={styles.draftHeader}>
-                  <span>To: support@{serviceName.toLowerCase().replace(/\s/g, '')}.com</span>
+                  <span>To: support@{serviceName.toLowerCase().replace(/\\s/g, '')}.com</span>
                   <span>Subject: Cancellation Request - Acct #XXX</span>
                 </div>
                 <textarea 
+                  ref={bodyRef}
                   className={styles.draftContent}
                   defaultValue={`Hello ${serviceName} Support,\n\nI am writing to formally request the immediate cancellation of my subscription and a refund for the recent unauthorized overcharge of ${amount}.\n\nPlease confirm when this has been processed.\n\nBest regards,\n[Your Name]`}
                 />
-                <button className={styles.btnSend}>Send Email via Locus API</button>
+                <button className={styles.btnSend} onClick={handleSendEmail}>Send Email via Locus API</button>
               </div>
             )}
           </div>
