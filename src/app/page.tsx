@@ -4,8 +4,45 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import Card from "@/components/Card";
 import { motion } from "framer-motion";
+import { useDashboard } from "@/hooks/useDashboard";
 
 export default function Dashboard() {
+  const { data, loading, error } = useDashboard();
+
+  if (loading) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.loading}>
+          <div className={styles.spinner}></div>
+          <p>Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.error}>
+          <h2>Error loading dashboard</h2>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>Retry</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) return null;
+
+  const getActivityIcon = (type: string) => {
+    switch (type) {
+      case 'cancelled': return '[ OK ]';
+      case 'escalated': return '[ .. ]';
+      case 'refunded': return '[ TX ]';
+      default: return '[ • ]';
+    }
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.heroSection}>
@@ -26,36 +63,36 @@ export default function Dashboard() {
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 20, ease: "linear", repeat: Infinity }}
         >
-           DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER.
+           DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER. • DETECT. MANAGE. RECOVER.
         </motion.div>
       </div>
 
       <section className={styles.metricsGrid}>
         <Card 
           title="Net Gain" 
-          value="$1,240" 
+          value={`$${data.netGain.toLocaleString()}`} 
           trend="up" 
-          trendValue="15%" 
+          trendValue={`${data.netGainTrend}%`} 
           subtitle="vs last month"
           icon="[ $ ]"
           highlight={true}
         />
         <Card 
           title="Recovered Savings" 
-          value="$1,500" 
+          value={`$${data.recoveredSavings.toLocaleString()}`} 
           icon="[ + ]"
         />
         <Card 
           title="Monthly Savings" 
-          value="$320" 
+          value={`$${data.monthlySavings.toLocaleString()}`} 
           trend="up"
-          trendValue="5%"
+          trendValue={`${data.monthlySavingsTrend}%`}
           subtitle="Recurring reductions"
           icon="[ ↓ ]"
         />
         <Card 
           title="Agent Spend" 
-          value="$260"
+          value={`$${data.agentSpend.toLocaleString()}`}
           subtitle="On hard escalations"
           icon="[ Δ ]"
         />
@@ -68,32 +105,28 @@ export default function Dashboard() {
         </div>
         
         <div className={styles.activityList}>
-          <div className={styles.activityItem}>
-            <div className={styles.activityIcon}>[ OK ]</div>
-            <div className={styles.activityDetails}>
-              <h4>Netflix Subscription Cancelled</h4>
-              <p>Requested via automated draft</p>
+          {data.recentActivity.map((activity) => (
+            <div key={activity.id} className={styles.activityItem}>
+              <div className={styles.activityIcon}>{getActivityIcon(activity.type)}</div>
+              <div className={styles.activityDetails}>
+                <h4>
+                  {activity.type === 'cancelled' && `${activity.serviceName} Subscription Cancelled`}
+                  {activity.type === 'escalated' && `${activity.serviceName} Escalation`}
+                  {activity.type === 'refunded' && `Refund Processed: ${activity.serviceName}`}
+                </h4>
+                <p>{activity.status}</p>
+              </div>
+              <div className={`${styles.activityAmount} ${activity.type === 'refunded' ? styles.positive : ''}`}>
+                {activity.amount || (activity.type === 'escalated' ? 'Pending' : '')}
+              </div>
             </div>
-            <div className={styles.activityAmount}>+$22.99/mo</div>
-          </div>
+          ))}
           
-          <div className={styles.activityItem}>
-            <div className={styles.activityIcon}>[ .. ]</div>
-            <div className={styles.activityDetails}>
-              <h4>Gym Membership Escalation</h4>
-              <p>Under review by human agent</p>
+          {data.recentActivity.length === 0 && (
+            <div className={styles.noActivity}>
+              <p>No recent activity. Upload bills to get started!</p>
             </div>
-            <div className={styles.activityAmount}>Pending</div>
-          </div>
-          
-          <div className={styles.activityItem}>
-            <div className={styles.activityIcon}>[ TX ]</div>
-            <div className={styles.activityDetails}>
-              <h4>Refund Processed: Adobe Creative Cloud</h4>
-              <p>Payout ready to be claimed</p>
-            </div>
-            <div className={`${styles.activityAmount} ${styles.positive}`}>+$85.00</div>
-          </div>
+          )}
         </div>
       </section>
     </div>

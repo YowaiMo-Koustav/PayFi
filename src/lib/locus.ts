@@ -56,7 +56,8 @@ class LocusService {
     };
 
     if (!this.config.apiKey && !this.config.mockMode) {
-      throw new Error('LOCUS_API_KEY is required when not in mock mode');
+      console.warn('LOCUS_API_KEY not found, falling back to mock mode');
+      this.config.mockMode = true;
     }
   }
 

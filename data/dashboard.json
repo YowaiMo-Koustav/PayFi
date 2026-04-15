@@ -1,0 +1,33 @@
+{
+  "netGain": 1240,
+  "netGainTrend": 15,
+  "recoveredSavings": 1500,
+  "monthlySavings": 320,
+  "monthlySavingsTrend": 5,
+  "agentSpend": 260,
+  "recentActivity": [
+    {
+      "id": "1",
+      "type": "cancelled",
+      "serviceName": "Netflix",
+      "amount": "+$22.99/mo",
+      "status": "Requested via automated draft",
+      "timestamp": "2026-04-15T14:21:00.159Z"
+    },
+    {
+      "id": "2",
+      "type": "escalated",
+      "serviceName": "Gym Membership",
+      "status": "Under review by human agent",
+      "timestamp": "2026-04-15T10:21:00.160Z"
+    },
+    {
+      "id": "3",
+      "type": "refunded",
+      "serviceName": "Adobe Creative Cloud",
+      "amount": "+$85.00",
+      "status": "Payout ready to be claimed",
+      "timestamp": "2026-04-14T16:21:00.160Z"
+    }
+  ]
+}

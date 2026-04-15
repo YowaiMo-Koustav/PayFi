@@ -111,8 +111,8 @@
   border: 1px solid var(--glass-border);
   border-radius: var(--glass-radius);
   padding: 2rem;
-  backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 }
 
@@ -199,4 +199,54 @@
 
 .activityAmount.positive {
   color: var(--success);
+}
+
+.loading, .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--glass-border);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error h2 {
+  color: var(--error);
+  margin-bottom: 0.5rem;
+}
+
+.error button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.error button:hover {
+  background: #324ed4;
+}
+
+.noActivity {
+  text-align: center;
+  padding: 2rem;
+  color: var(--tertiary);
+  font-style: italic;
 }
